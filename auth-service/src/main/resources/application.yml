@@ -1,0 +1,61 @@
+# ======================================
+# HIS Auth Service Configuration
+# ======================================
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /auth
+
+# Spring Application Configuration
+spring:
+  application:
+    name: auth-service
+  
+  # Oracle Database Configuration
+  # NOTE: Replace these placeholder values with your actual Oracle database credentials
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:XE  # Replace with your Oracle DB URL
+    username: your_db_username                 # Replace with your Oracle DB username
+    password: your_db_password                 # Replace with your Oracle DB password
+    driver-class-name: oracle.jdbc.OracleDriver
+    
+  # JPA/Hibernate Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update                         # Use 'validate' in production
+    show-sql: true                             # Set to false in production
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+        format_sql: true                       # Set to false in production
+    
+  # Jackson Configuration for JSON processing
+  jackson:
+    default-property-inclusion: non_null
+
+# JWT Configuration
+# NOTE: Replace this secret with a strong, unique secret key in production
+jwt:
+  secret: mySecretKey123456789012345678901234567890  # Must be at least 256 bits (32 characters)
+  expiration: 86400000                               # Token expiration time in milliseconds (24 hours)
+
+# Logging Configuration
+logging:
+  level:
+    com.his.authservice: DEBUG                       # Set to INFO or WARN in production
+    org.springframework.security: DEBUG             # Set to INFO in production
+    org.hibernate.SQL: DEBUG                        # Set to INFO in production
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Management endpoints for health checks
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
