@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.his.authservice.AuthServiceApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.751 s -- in com.his.authservice.AuthServiceApplicationTests
