@@ -1,0 +1,55 @@
+# Application Configuration for Local H2 Testing
+# Copy this to application-local.yml and update with your actual configuration
+
+server:
+  port: 8080
+  servlet:
+    context-path: /auth
+
+spring:
+  application:
+    name: auth-service
+  
+  # H2 Database Configuration for testing
+  datasource:
+    url: jdbc:h2:mem:authdb;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+    
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    
+  h2:
+    console:
+      enabled: true
+
+  jackson:
+    default-property-inclusion: non_null
+
+jwt:
+  secret: mySecretKey123456789012345678901234567890
+  expiration: 86400000
+
+logging:
+  level:
+    com.his.authservice: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
