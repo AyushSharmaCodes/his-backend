@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+
+  security:
+    user:
+      name: user
+      password: password
+
+  application:
+    name: his-api-gateway
+
+  boot:
+    admin:
+      client:
+       url: http://localhost:1111/
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: his-auth-service
+#              uri: lb://HIS-AUTH-SERVICE
+              uri:
+                http://localhost:9090
+              predicates:
+                - Path=/api/auth/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+# JWT Configuration
+jwt:
+  secret: "9329a6213d74c30537027c6cb0286cc87d6e087eaca60276acb51cd48b8e2332"
+
+logging:
+  level:
+    com.ayush.apigateway: DEBUG
+    org.springframework.cloud.gateway: DEBUG

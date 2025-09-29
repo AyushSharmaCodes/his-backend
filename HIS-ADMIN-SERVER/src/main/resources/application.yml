@@ -1,0 +1,5 @@
+spring:
+    application:
+        name: HIS-ADMIN-SERVER
+server:
+  port: 1111
